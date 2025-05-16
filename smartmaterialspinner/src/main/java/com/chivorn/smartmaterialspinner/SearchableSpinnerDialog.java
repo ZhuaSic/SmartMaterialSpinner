@@ -219,8 +219,15 @@ public class SearchableSpinnerDialog<T> extends DialogFragment implements Search
                             String fullText = StringUtils.removeDiacriticalMarks(tvListItem.getText().toString()).toLowerCase(Locale.getDefault());
                             int start = fullText.indexOf(query);
                             int end = start + query.length();
-                            spannableString.setSpan(new ForegroundColorSpan(searchFilterColor), start, end, 0);
-                            tvListItem.setText(spannableString, TextView.BufferType.SPANNABLE);
+                            
+                            if (start >= 0) {
+                                int end = start + query.length();
+                                if (end <= spannableString.length()) {
+                                    spannableString.setSpan(new ForegroundColorSpan(SearchableSpinnerDialog.this.searchFilterColor), start, end, 0);
+                                }
+                            }
+                            SearchableSpinnerDialog.this.tvListItem.setText(spannableString, BufferType.SPANNABLE);
+
                         }
                     }
 
